@@ -1,16 +1,14 @@
-// export default LocationSearchInput;
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper } from "google-maps-react";
-import SearchLocation from "./SearchLocation";
-import "./SearchLocationPage.scss";
+import FromAddressPage from "../FromAddressPage/FromAddressPage";
+import "./ShowMapPage.scss";
 const mapStyles = {
-  height: `100%`
-  // width: `50%`,
-  // display: "flex",
-  // flexDirection: "column-reverse"
+  top: "60px",
+  left: "0px",
+  position: "absolute"
 };
 
-class SearchLocationPage extends Component {
+class ShowMapPage extends Component {
   state = {
     lat: 47.444,
     lng: -122.176
@@ -25,7 +23,7 @@ class SearchLocationPage extends Component {
   render() {
     return (
       <div className="searchmap">
-        <SearchLocation changeLocation={this.changeLocation} />
+        <FromAddressPage changeLocation={this.changeLocation} />
         <Map
           google={this.props.google}
           zoom={8}
@@ -37,7 +35,6 @@ class SearchLocationPage extends Component {
   }
 }
 
-// export default FormikForm;
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDBunJ4GXNEC3KJlpoGJO-iB--CjPv4o-s"
-})(SearchLocationPage);
+})(ShowMapPage);

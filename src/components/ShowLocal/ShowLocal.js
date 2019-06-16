@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { directive } from "@babel/types";
 // import ShowUser from "./ShowUser";
 class ShowLocal extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class ShowLocal extends Component {
       <div>
         <label className="userName">{this.state.username}</label>
         <label className="phoneNumber">{this.state.phonenumber}</label>
-        <img className="avatar" src={this.state.avatar} alt="" />
+        <img className="avatar" src={"/image/" + this.state.avatar} alt="" />
       </div>
     );
   }

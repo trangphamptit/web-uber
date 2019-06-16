@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./UserPage.scss";
-import GenderButton from "../../components/buttons/GenderButton";
 import male from "../../img/male.png";
 import female from "../../img/female.png";
 import loadfile from "../../img/loadfile.png";
@@ -58,20 +57,23 @@ class UserPage extends Component {
 }
 
 const UserPageForm = withFormik({
-  mapPropsToValues({ username, gender }) {
+  mapPropsToValues({ username, gender, avatar }) {
     return {
       username: "",
       gender: "",
       avatar: ""
     };
   },
+
   handleSubmit(values, { props }) {
-    console.log(values);
     const { username, gender, avatar } = values;
     localStorage.setItem("username", username);
     localStorage.setItem("gender", gender);
-    localStorage.setItem("avatar", avatar);
-    props.history.push("/searchlocation");
+    let tmps = avatar.split("\\");
+    // console.log(tmps);
+    let filename = tmps[tmps.length - 1];
+    localStorage.setItem("avatar", filename);
+    props.history.push("/showmappage");
   }
 
   // validationSchema: Yup.object().shape({

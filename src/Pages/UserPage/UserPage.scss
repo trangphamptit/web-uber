@@ -55,12 +55,9 @@ input[type="radio"]:active {
   display: flex;
   justify-content: start;
 }
-// input[type="file"] + img {
-//   background-image: url("../../img/loadfile.png");
-// }
+
 .upload-photo {
   position: relative;
-  // overflow: hidden;
   display: flex;
   justify-content: space-between;
 }
@@ -75,20 +72,3 @@ input[type="radio"]:active {
   left: 0px;
   position: absolute;
 }
-#avatar {
-  // display: none;
-}
-// .select-gender:checked {
-//   border: 1px solid blue;
-// }
-// .select-gender {{
-
-//   margin: 20px 0px 10px 20px;
-// }
-// .choose-gender {
-//   display: flex;
-//   justify-content: flex-start;
-// }
-// .male {
-//   margin-right: 15px;
-// }

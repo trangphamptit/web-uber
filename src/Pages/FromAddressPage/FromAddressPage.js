@@ -3,8 +3,10 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import "./SearchLocation.scss";
-class SearchLocation extends Component {
+import "./FromAddressPage.scss";
+
+import { withRouter } from "react-router-dom";
+class FromAddress extends Component {
   constructor(props) {
     super(props);
     this.state = { address: "" };
@@ -22,13 +24,21 @@ class SearchLocation extends Component {
       })
       .catch(error => console.error("Error", error));
   };
+  handleSubmit = (history, event) => {
+    console.log(this.state.address);
+    localStorage.setItem("fromAddress", this.state.address);
+    history.push("./phonepage");
+    event.preventDefault();
+  };
 
   render() {
+    const { history } = this.props;
     return (
       <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleChange}
         onSelect={this.handleSelect}
+        onSubmit={this.handleSubmit}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className="modal-search-location">
@@ -38,11 +48,15 @@ class SearchLocation extends Component {
               </label>
               <input
                 {...getInputProps({
-                  placeholder: "Search Places ...",
+                  placeholder: "Where to?",
                   className: "location-search-input"
                 })}
               />
-              <button className="search-button" type="submit">
+              <button
+                className="search-button"
+                type="submit"
+                onClick={event => this.handleSubmit(history, event)}
+              >
                 <i class="fas fa-search" />
               </button>
             </div>
@@ -53,7 +67,7 @@ class SearchLocation extends Component {
                 const className = suggestion.active
                   ? "suggestion-item--active"
                   : "suggestion-item";
-                // inline style for demonstration purpose
+
                 const style = suggestion.active
                   ? { backgroundColor: "#fafafa", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
@@ -71,7 +85,6 @@ class SearchLocation extends Component {
                         <p>{suggestion.formattedSuggestion.secondaryText}</p>
                       </div>
                     </div>
-                    {/* <span>{suggestion.description}</span> */}
                     {console.log(suggestion)}
                   </div>
                 );
@@ -84,27 +97,5 @@ class SearchLocation extends Component {
   }
 }
 
-// const SearchLocationForm = withFormik({
-//   mapPropsToValues({ phonenumber, agree }) {
-//     return {
-//       phonenumber: "",
-//       agree: true
-//     };
-//   },
-//   handleSubmit(values, { props }) {
-//     console.log(values);
-//     const { phonenumber, agree } = values;
-//     localStorage.setItem("phonenumber", phonenumber);
-//     localStorage.setItem("agree", agree);
-//     props.history.push("/codepage");
-//   },
-
-//   validationSchema: Yup.object().shape({
-//     phonenumber: Yup.string()
-//       .required("Phone number is required")
-//       .min(10, "Phone number must have min 10 characters")
-//       .max(11, "Phone number must have max 11 characters")
-//   })
-// })(SearchLocation);
-// export default SearchLocationForm;
-export default SearchLocation;
+const SearchLocationWithRouter = withRouter(FromAddress);
+export default SearchLocationWithRouter;
